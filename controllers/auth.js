@@ -1,4 +1,6 @@
 const UserModel = require('../models/User');
+//errors
+const {BadRequest}=require('../errors');
 
 const registerUser = async (req,res,next) =>{
     try{
@@ -14,18 +16,18 @@ const loginUser = async (req,res,next)=>{
     try{
         const {email,password} = req.body;
         if(!email || !password)
-            throw new Error("Bad Request");
+            throw new BadRequest("Bad Request");
         
         //check for the user
         const user = await UserModel.findOne({email});
 
         if(!user)
-            throw new Error("Cannot find a user with the email: "+email);
+            throw new BadRequest("Cannot find a user with the email: "+email);
         
         const isMatch = await UserModel.comparePassword(password,user.password);
 
         if(!isMatch)
-            throw new Error("Password doesn't match !")
+            throw new BadRequest("Password doesn't match !")
         
         const token = UserModel.generateJWT();
         res.status(201).json({good:true,msg:"Successfully logged in",token});

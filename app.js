@@ -4,6 +4,8 @@ require('dotenv').config();
 const express = require('express');
 const authRouter = require('./routes/auth');
 const connectDB = require('./db/connect');
+const notFound=require('./middleware/NotFound');
+const errorHandler = require('./middleware/ErrorHandler');
 
 //security packages
 const helmet = require('helmet');
@@ -19,7 +21,6 @@ app.use(helmet());
 app.use(xss());
 app.use(cors());
 
-
 //routes
 app.get('/',(req,res)=>{
     res.status(200).send('<p>This is the server</p>')
@@ -27,6 +28,10 @@ app.get('/',(req,res)=>{
 //authentication route
 app.use('/auth',authRouter);
 
+
+//middlewares
+app.use(notFound);
+app.use(errorHandler);
 
 //enviroment port
 const PORT = process.env.PORT || 5000;
