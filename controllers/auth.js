@@ -5,7 +5,6 @@ const {BadRequest}=require('../errors');
 const registerUser = async (req,res,next) =>{
     try{
         const user = await UserModel.create(req.body);
-        console.log(user);
         res.status(201).json({msg:"Account was successfully created!"});
     }catch(err){
         next(err);
@@ -16,7 +15,7 @@ const loginUser = async (req,res,next)=>{
     try{
         const {email,password} = req.body;
         if(!email || !password)
-            throw new BadRequest("Bad Request");
+            throw new BadRequest("You must enter a valid email and password");
         
         //check for the user
         const user = await UserModel.findOne({email});
