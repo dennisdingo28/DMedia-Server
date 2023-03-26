@@ -1,6 +1,9 @@
 require('dotenv').config();
 
+//requires
 const express = require('express');
+const authRouter = require('./routes/auth');
+const connectDB = require('./db/connect');
 
 //security packages
 const helmet = require('helmet');
@@ -17,11 +20,24 @@ app.use(xss());
 app.use(cors());
 
 
+//routes
+app.get('/',(req,res)=>{
+    res.status(200).send('<p>This is the server</p>')
+});
+//authentication route
+app.use('/auth',authRouter);
+
+
 //enviroment port
 const PORT = process.env.PORT || 5000;
 
 const start = async (req,res) =>{
-    app.listen(PORT,()=>{console.log(`Server is listening to port ${PORT}`);})
+    try{
+        await connectDB(process.env.MONGO_URI);
+        app.listen(PORT,()=>{console.log(`Server is listening to port ${PORT}`);})
+    }catch(err){
+        console.log(err);
+    }
 }
 
 start();
