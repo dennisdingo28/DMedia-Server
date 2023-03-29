@@ -35,7 +35,7 @@ const errorHandler = (err,req,res,next)=>{
         }
     }
 
-    res.status(defaultError.statusCode).json(defaultError); 
+    res.status(200).json(defaultError); 
 }
 
 module.exports = errorHandler;

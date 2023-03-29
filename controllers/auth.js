@@ -5,7 +5,7 @@ const {BadRequest}=require('../errors');
 const registerUser = async (req,res,next) =>{
     try{
         const user = await UserModel.create(req.body);
-        res.status(201).json({msg:"Account was successfully created!"});
+        res.status(201).json({good:true,msg:"Account was successfully created!"});
     }catch(err){
         next(err);
     }
@@ -29,7 +29,7 @@ const loginUser = async (req,res,next)=>{
             throw new BadRequest("Password doesn't match !")
         
         const token = UserModel.generateJWT();
-        res.status(201).json({good:true,msg:"Successfully logged in",token});
+        res.status(200).json({good:true,msg:"Successfully logged in",token});
 
     }catch(err){
         next(err);
