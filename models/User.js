@@ -10,6 +10,9 @@ const UserSchema = new mongoose.Schema({
         required:[true,'Please provide a valid username'],
         unique:true
     },
+    profileUrl:{
+        type:String,
+    },
     password:{
         type:String,
         minlength:4,
