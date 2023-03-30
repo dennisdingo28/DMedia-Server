@@ -2,6 +2,7 @@ const {CustomError} = require('../errors');
 
 const errorHandler = (err,req,res,next)=>{
 
+    
     function setError(message,status,good){
         defaultError.msg=message;
         defaultError.statusCode=status;
