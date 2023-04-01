@@ -37,8 +37,8 @@ UserSchema.statics.comparePassword = async function (canditatePassword,userPassw
     const match = await bcrypt.compare(canditatePassword,userPassword);
     return match;
 }
-UserSchema.statics.generateJWT = function () {
-    const token = jwt.sign({userId:this._id},process.env.JWT_ENCRYPTION,{expiresIn:process.env.JWT_LIFETIME});
+UserSchema.statics.generateJWT = function (userId) {
+    const token = jwt.sign({userId},process.env.JWT_ENCRYPTION,{expiresIn:process.env.JWT_LIFETIME});
     return token;
 }
 

@@ -1,3 +1,4 @@
+const { JsonWebTokenError } = require('jsonwebtoken');
 const {CustomError} = require('../errors');
 
 const errorHandler = (err,req,res,next)=>{
@@ -36,6 +37,9 @@ const errorHandler = (err,req,res,next)=>{
             setError(`${err.errors.password}`,400,false);
         }
     }
+
+    if(err instanceof JsonWebTokenError)
+        setError(`No authorization token was provided`,401,false);
 
     res.status(200).json(defaultError); 
 }

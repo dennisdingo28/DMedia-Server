@@ -28,7 +28,7 @@ const loginUser = async (req,res,next)=>{
         if(!isMatch)
             throw new NotFound("Password doesn't match !")
         
-        const token = UserModel.generateJWT();
+        const token = UserModel.generateJWT(user._id);
         res.status(200).json({good:true,msg:"Successfully logged in",token});
 
     }catch(err){
