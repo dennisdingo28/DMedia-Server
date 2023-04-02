@@ -27,6 +27,7 @@ app.get('/',(req,res)=>{
 });
 //authentication route
 app.use('/auth',authRouter);
+//app.use('/search',searchRouter);
 
 
 //middlewares
