@@ -19,4 +19,6 @@ const searchUser = async (req,res,next)=>{
 };
 
 
+
+
 module.exports = {searchUser};
