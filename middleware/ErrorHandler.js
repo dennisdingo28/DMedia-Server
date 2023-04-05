@@ -33,8 +33,18 @@ const errorHandler = (err,req,res,next)=>{
             setError(`${err.errors.username}`,400,false);
         }else if(err.errors.email){
             setError(`${err.errors.email}`,400,false);
-        }else{
+        }else if(err.errors.password){
             setError(`${err.errors.password}`,400,false);
+        }else if(err.errors.imageUrl){
+            setError(`${err.errors.imageUrl}`,400,false);
+        }else if(err.errors.imageAlt){
+            setError(`${err.errors.imageAlt}`,400,false);
+        }else if(err.errors.imageWidth){
+            setError(`${err.errors.imageWidth}`,400,false);
+        }else if(err.errors.imageHeight){
+            setError(`${err.errors.imageHeight}`,400,false);
+        }else if(err.errors.createdBy){
+            setError(`${err.errors.createdBy}`,400,false);
         }
     }
 
