@@ -8,6 +8,7 @@ const createRouter = require('./routes/create');
 const connectDB = require('./db/connect');
 const notFound=require('./middleware/NotFound');
 const errorHandler = require('./middleware/ErrorHandler');
+const authentication = require("./middleware/authenticate");
 
 //security packages
 const helmet = require('helmet');
@@ -30,7 +31,7 @@ app.get('/',(req,res)=>{
 //authentication route
 app.use('/auth',authRouter);
 app.use('/search',searchRouter);
-app.use('/create',createRouter);
+app.use('/create',authentication,createRouter);
 
 //middlewares
 app.use(notFound);

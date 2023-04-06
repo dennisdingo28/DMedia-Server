@@ -4,19 +4,13 @@ const mongoose = require('mongoose');
 const PostSchema = new mongoose.Schema({
     imageUrl:{
         type:String,
-        required:[true,'You must provide the image url']
     },
     imageAlt:{
         type:String,
-        required:[true,'You must provide the image alt']
     },
-    imageWidth:{
-        type:Number,
-        required:[true,'You must provide the image width']
-    },
-    imageHeight:{
-        type:Number,
-        required:[true,'You must provide the image height']
+    title:{
+        type:String,
+        required:[true,'Cannot submit an empty post']
     },
     createdBy:{
         type:mongoose.Types.ObjectId,

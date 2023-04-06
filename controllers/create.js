@@ -3,7 +3,11 @@ const {BadRequest} = require('../errors/');
 
 const createPost = async(req,res,next) =>{
     try{
-        const post = await PostSchema.create(req.body);
+        const decodedInfo = req.user;
+
+        const postProps = {...req.body,createdBy:decodedInfo.userId};
+
+        const post = await PostSchema.create(postProps);
         
         if(!post)
             throw new BadRequest("Cannot create your post.Please try again later.");
