@@ -1,4 +1,6 @@
 const UserSchema = require("../models/User");
+const PostSchema = require('../models/Post');
+
 const {BadRequest,NotFound} = require("../errors");
 
 const searchUser = async (req,res,next)=>{
@@ -18,7 +20,17 @@ const searchUser = async (req,res,next)=>{
     }
 };
 
+const searchAllPosts = async (req,res,next)=>{
+    try{
+        const posts = await PostSchema.find({});
+        if(posts.length==0)
+            throw new NotFound('Cannot get any posts.');
+        res.status(200).json(posts);
+    }catch(err){
+        next(err);
+    }
+};
 
 
 
-module.exports = {searchUser};
+module.exports = {searchUser,searchAllPosts};
