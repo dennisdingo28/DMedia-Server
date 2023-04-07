@@ -4,7 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const authRouter = require('./routes/auth');
 const searchRouter = require('./routes/search');
-const createRouter = require('./routes/create');
+const postRouter = require('./routes/post');
 const connectDB = require('./db/connect');
 const notFound=require('./middleware/NotFound');
 const errorHandler = require('./middleware/ErrorHandler');
@@ -31,7 +31,7 @@ app.get('/',(req,res)=>{
 //authentication route
 app.use('/auth',authRouter);
 app.use('/search',searchRouter);
-app.use('/create',authentication,createRouter);
+app.use('/post',authentication,postRouter);
 
 //middlewares
 app.use(notFound);
