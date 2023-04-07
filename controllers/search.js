@@ -20,6 +20,20 @@ const searchUser = async (req,res,next)=>{
     }
 };
 
+const searchUserById = async (req,res,next)=>{
+    try{
+        const userObject=req.params;
+        console.log(userObject) ;
+        const user = await UserSchema.findById({_id:userObject.userId});
+        if(!user)
+            throw new BadRequest(`Cannot find any user with the id of ${userId}`);
+
+        res.status(200).json(user);
+    }catch(err){
+        next(err);
+    }
+}
+
 const searchAllPosts = async (req,res,next)=>{
     try{
         const posts = await PostSchema.find({});
@@ -33,4 +47,4 @@ const searchAllPosts = async (req,res,next)=>{
 
 
 
-module.exports = {searchUser,searchAllPosts};
+module.exports = {searchUser,searchUserById,searchAllPosts};

@@ -12,6 +12,9 @@ const PostSchema = new mongoose.Schema({
         type:String,
         required:[true,'Cannot submit an empty post']
     },
+    description:{
+        type:String,
+    },
     createdBy:{
         type:mongoose.Types.ObjectId,
         required:[true,'You must provide the user id of the creator']
