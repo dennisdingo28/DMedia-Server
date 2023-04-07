@@ -18,6 +18,22 @@ const PostSchema = new mongoose.Schema({
     createdBy:{
         type:mongoose.Types.ObjectId,
         required:[true,'You must provide the user id of the creator']
+    },
+    likes:{
+        type:Number,
+        default:0
+    },
+    dislikes:{
+        type:Number,
+        default:0
+    },
+    shares:{
+        type:Number,
+        default:0
+    },
+    reports:{
+        type:Number,
+        default:0
     }
 });
 
