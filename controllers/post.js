@@ -21,9 +21,11 @@ const createPost = async(req,res,next) =>{
 const updatePost = async (req,res,next)=>{
     try{
         const postObject = req.params;
+        console.log(postObject);
+        console.log(req.body);
         const {likes,dislikes}=req.body;
 
-        if(!likes && !dislikes)
+        if(likes===undefined && dislikes===undefined)
             throw new BadRequest("Cannot update with empty values");
 
         const postId = postObject.id;
