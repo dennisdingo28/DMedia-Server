@@ -36,7 +36,7 @@ const searchUserById = async (req,res,next)=>{
 
 const searchAllPosts = async (req,res,next)=>{
     try{
-        const posts = await PostSchema.find({});
+        const posts = await PostSchema.find({}).select('-likes').select('-dislikes');
         if(posts.length==0)
             throw new NotFound('Cannot get any posts.');
         res.status(200).json(posts);
@@ -45,6 +45,19 @@ const searchAllPosts = async (req,res,next)=>{
     }
 };
 
+const searchPostById = async(req,res,next)=>{
+    try{
+        const {id}=req.params;
+        const targetPost = await PostSchema.findById({_id:id});
+
+        if(!targetPost)
+            throw new BadRequest(`Cannot find any post with the id of ${id}`);
+
+        res.status(200).json(targetPost);
+    }catch(err){
+        next(err);
+    }
+}
 
 
-module.exports = {searchUser,searchUserById,searchAllPosts};
+module.exports = {searchUser,searchUserById,searchAllPosts,searchPostById};
