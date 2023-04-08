@@ -22,21 +22,19 @@ const updatePost = async (req,res,next)=>{
     try{
         console.log('user hits the server');
         const postObject = req.params;
-        const {likes,dislikes}=req.body;
         console.log(req.body);
 
-        console.log(likes,dislikes);
+        const {nrLikes,nrDislikes} = req.body;
 
-        console.log(likes,dislikes);
-        if(!likes && !dislikes)
-            throw new BadRequest("Cannot update with empty values");
+        const likes = nrLikes;
+        const dislikes = nrDislikes;
 
         const postId = postObject.id;
 
         if(!postId)
             throw new BadRequest("You must provide a post id in order to update it");
 
-        const targetPost = await PostSchema.findByIdAndUpdate({_id:postId},req.body,{new:true,runValidators:true});
+        const targetPost = await PostSchema.findByIdAndUpdate({_id:postId},{likes,dislikes},{new:true,runValidators:true});
 
         if(!targetPost)
             throw new BadRequest(`Cannot find any post with the id of ${postId}`);
