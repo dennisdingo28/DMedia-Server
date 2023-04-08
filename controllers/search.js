@@ -24,7 +24,7 @@ const searchUserById = async (req,res,next)=>{
     try{
         const userObject=req.params;
         console.log(userObject) ;
-        const user = await UserSchema.findById({_id:userObject.userId});
+        const user = await UserSchema.findById({_id:userObject.userId}).select('-password');
         if(!user)
             throw new BadRequest(`Cannot find any user with the id of ${userId}`);
 
