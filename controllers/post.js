@@ -20,10 +20,12 @@ const createPost = async(req,res,next) =>{
 
 const updatePost = async (req,res,next)=>{
     try{
+        console.log('user hits the server');
         const postObject = req.params;
-        console.log(postObject);
-        console.log(req.body);
         const {likes,dislikes}=req.body;
+        console.log(req.body);
+
+        console.log(likes,dislikes);
 
         console.log(likes,dislikes);
         if(!likes && !dislikes)
@@ -44,5 +46,7 @@ const updatePost = async (req,res,next)=>{
         next(err);
     }
 }
+
+
 
 module.exports = {createPost,updatePost};
