@@ -24,10 +24,10 @@ const updatePost = async (req,res,next)=>{
         const postObject = req.params;
         console.log(req.body);
 
-        const {nrLikes,nrDislikes} = req.body;
+        const {numberOfLikes,numberOfDislikes} = req.body;
 
-        const likes = nrLikes;
-        const dislikes = nrDislikes;
+        const likes = numberOfLikes;
+        const dislikes = numberOfDislikes;
 
         const postId = postObject.id;
 
