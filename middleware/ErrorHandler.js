@@ -39,10 +39,6 @@ const errorHandler = (err,req,res,next)=>{
             setError(`${err.errors.imageUrl}`,400,false);
         }else if(err.errors.imageAlt){
             setError(`${err.errors.imageAlt}`,400,false);
-        }else if(err.errors.imageWidth){
-            setError(`${err.errors.imageWidth}`,400,false);
-        }else if(err.errors.imageHeight){
-            setError(`${err.errors.imageHeight}`,400,false);
         }else if(err.errors.createdBy){
             setError(`${err.errors.createdBy}`,400,false);
         }
