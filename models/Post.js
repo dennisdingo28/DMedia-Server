@@ -31,6 +31,10 @@ const PostSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
+    comments:[{
+        type:mongoose.Types.ObjectId,
+        ref:'User'
+    }],
     reports:{
         type:Number,
         default:0

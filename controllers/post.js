@@ -24,7 +24,9 @@ const updatePost = async (req,res,next)=>{
         const postObject = req.params;
         console.log(req.body);
 
-        const {numberOfLikes,numberOfDislikes} = req.body;
+        let postPropsObject = {}
+
+        const {numberOfLikes,numberOfDislikes,comments} = req.body;
 
         const likes = numberOfLikes;
         const dislikes = numberOfDislikes;
@@ -34,7 +36,19 @@ const updatePost = async (req,res,next)=>{
         if(!postId)
             throw new BadRequest("You must provide a post id in order to update it");
 
-        const targetPost = await PostSchema.findByIdAndUpdate({_id:postId},{likes,dislikes},{new:true,runValidators:true});
+        if(likes!==undefined){
+            postPropsObject.likes = likes;
+        }
+        if(dislikes!==undefined){
+            postPropsObject.dislikes=dislikes;
+        }
+
+        if(comments!==undefined)
+        {
+            postPropsObject.comments = comments;
+        }
+        
+        const targetPost = await PostSchema.findByIdAndUpdate({_id:postId},postPropsObject,{new:true,runValidators:true});
 
         if(!targetPost)
             throw new BadRequest(`Cannot find any post with the id of ${postId}`);

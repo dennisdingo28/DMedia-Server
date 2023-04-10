@@ -9,7 +9,7 @@ const searchUser = async (req,res,next)=>{
 
         if(!username)
             throw new BadRequest("You must provide an username");
-        const targetUser = await UserSchema.find({username:{$regex:username,$options:'i'}});
+        const targetUser = await UserSchema.find({username:{$regex:username,$options:'i'}}).select('-password');
 
         if(targetUser.length==0)
             throw new NotFound(`Cannot find a user with the name of ${username}`);
