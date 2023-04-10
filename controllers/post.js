@@ -12,7 +12,7 @@ const createPost = async(req,res,next) =>{
         if(!post)
             throw new BadRequest("Cannot create your post.Please try again later.");
         
-        res.status(201).json({msg:"Post was successfully created",good:true});
+        res.status(201).json({msg:"Post was successfully created",good:true,post:post});
     }catch(err){
         next(err);
     }

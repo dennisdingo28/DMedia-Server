@@ -23,8 +23,26 @@ const UserSchema = new mongoose.Schema({
         match:[/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         'Please provide email'],
         unique:true 
-    }
-});
+    },
+    //other users likes 
+    totalLikes:{
+        type:Number,
+        default:0
+    },
+    //other users dislikes
+    totalDislikes:{
+        type:Number,
+        default:0
+    },
+    totalShares:{
+        type:Number,
+        default:0
+    },
+    posts:[{
+        type:mongoose.Types.ObjectId,
+        ref:'posts'
+    }]
+},{timestamps:true});
 
 UserSchema.pre('save',async function (){
     const salt = await bcrypt.genSalt(10);

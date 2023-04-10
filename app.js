@@ -5,6 +5,7 @@ const express = require('express');
 const authRouter = require('./routes/auth');
 const searchRouter = require('./routes/search');
 const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
 const connectDB = require('./db/connect');
 const notFound=require('./middleware/NotFound');
 const errorHandler = require('./middleware/ErrorHandler');
@@ -32,6 +33,7 @@ app.get('/',(req,res)=>{
 app.use('/auth',authRouter);
 app.use('/search',searchRouter);
 app.use('/post',authentication,postRouter);
+app.use('/user',authentication,userRouter);
 
 //middlewares
 app.use(notFound);
