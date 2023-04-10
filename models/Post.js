@@ -32,8 +32,11 @@ const PostSchema = new mongoose.Schema({
         default:0
     },
     comments:[{
-        type:mongoose.Types.ObjectId,
-        ref:'User'
+        userId:mongoose.Types.ObjectId,
+        commentText:{
+            type:String,
+            required:[true,'Cannot create an empty comment']
+        },
     }],
     reports:{
         type:Number,
