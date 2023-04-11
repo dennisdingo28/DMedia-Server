@@ -5,20 +5,23 @@ const updateUser = async (req,res,next)=>{
     try{
         const {id}=req.params;
         const {totalLikes,totalDislikes,totalShares,posts}=req.body;
-    
+
+        console.log(req.body);
+        
         let userPropsObject = {
 
         }
 
-        if(totalLikes)
+        if(totalLikes!==undefined)
             userPropsObject.totalLikes=totalLikes;
-        if(totalDislikes)
+        if(totalDislikes!==undefined)
             userPropsObject.totalDislikes=totalDislikes;
-        if(totalShares)
+        if(totalShares!==undefined)
             userPropsObject.totalShares=totalShares;
-        if(posts)
+        if(posts!==undefined)
             userPropsObject.posts=posts;
 
+        
         const user = await UserSchema.findByIdAndUpdate({_id:id},userPropsObject,{new:true,runValidators:true})
         
         if(!user){
