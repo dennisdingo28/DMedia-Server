@@ -1,4 +1,5 @@
 const PostSchema = require('../models/Post');
+const UserSchema = require('../models/User');
 const {BadRequest} = require('../errors');
 
 const createPost = async(req,res,next) =>{
@@ -13,6 +14,29 @@ const createPost = async(req,res,next) =>{
             throw new BadRequest("Cannot create your post.Please try again later.");
         
         res.status(201).json({msg:"Post was successfully created",good:true,post:post});
+    }catch(err){
+        next(err);
+    }
+}
+
+const sharePost = async(req,res,next)=>{
+    try{
+        const {id} = req.params;
+        console.log(req.body);
+        
+        const userId=req.body.user._id;
+        const {createdBy}=req.body;
+
+        const targetUser = await UserSchema.findById({_id:userId});
+
+        if(!targetUser)
+            throw new BadRequest(`Cannot find any user with the id of ${userId}`);
+
+        const targetUserShares = targetUser.sharedPosts;
+        const updatedUser = await UserSchema.findByIdAndUpdate({_id:userId},{sharedPosts:[{userId:createdBy,postId:id},...targetUserShares]},{new:true,runValidators:true});
+
+        res.status(200).json({user:updatedUser,good:true});
+
     }catch(err){
         next(err);
     }
@@ -61,4 +85,4 @@ const updatePost = async (req,res,next)=>{
 
 
 
-module.exports = {createPost,updatePost};
+module.exports = {createPost,updatePost,sharePost};

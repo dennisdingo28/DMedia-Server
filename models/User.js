@@ -41,7 +41,13 @@ const UserSchema = new mongoose.Schema({
     posts:[{
         type:mongoose.Types.ObjectId,
         ref:'posts'
-    }]
+    }],
+    sharedPosts:[
+        {
+            userId:mongoose.Types.ObjectId,
+            postId:mongoose.Types.ObjectId
+        }
+    ]
 },{timestamps:true});
 
 UserSchema.pre('save',async function (){
