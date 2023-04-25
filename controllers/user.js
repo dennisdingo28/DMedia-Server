@@ -5,8 +5,6 @@ const updateUser = async (req,res,next)=>{
     try{
         const {id}=req.params;
         const {totalPostLikes,totalPostDislikes,defaultLikes,defaultDislikes,totalShares,posts}=req.body;
-
-        console.log(req.body);
         
         const targetUser = await UserSchema.findById({_id:id});
 
