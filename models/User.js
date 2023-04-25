@@ -38,16 +38,7 @@ const UserSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
-    posts:[{
-        postId:mongoose.Types.ObjectId,
-        share:{
-            shared:{
-                type:Boolean,
-                default:false
-            },
-            initialUserId:mongoose.Types.ObjectId
-        },
-    }],
+    posts:[{type:mongoose.Types.ObjectId,}],
    
 },{timestamps:true});
 

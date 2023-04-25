@@ -30,6 +30,10 @@ const PostSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
+    share:{
+        sharedBy:[{type:mongoose.Types.ObjectId}],
+        initialUserId:mongoose.Types.ObjectId
+    },
     comments:[{
         userId:mongoose.Types.ObjectId,
         commentText:{

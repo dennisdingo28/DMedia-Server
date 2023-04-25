@@ -21,21 +21,7 @@ const createPost = async(req,res,next) =>{
 
 const sharePost = async(req,res,next)=>{
     try{
-        const {id} = req.params;
-        console.log(req.body);
         
-        const userId=req.body.user._id;
-        const {createdBy}=req.body;
-
-        const targetUser = await UserSchema.findById({_id:userId});
-
-        if(!targetUser)
-            throw new BadRequest(`Cannot find any user with the id of ${userId}`);
-
-        const targetUserShares = targetUser.sharedPosts;
-        const updatedUser = await UserSchema.findByIdAndUpdate({_id:userId},{sharedPosts:[{userId:createdBy,postId:id},...targetUserShares]},{new:true,runValidators:true});
-
-        res.status(200).json({user:updatedUser,good:true});
 
     }catch(err){
         next(err);
