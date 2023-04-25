@@ -3,10 +3,12 @@ const {BadRequest} = require("../errors/");
 
 async function extractUser(req,res,next){
     try{
-        const authUser = req.user;
-        const user = await UserSchema.findById({_id:authUser.userId}).select("-password");
+        const {decodedInfo} = req.user;
+
+        console.log(decodedInfo);
+        const user = await UserSchema.findById({_id:decodedInfo.userId}).select("-password");
         if(!user)
-            throw new BadRequest(`Cannot find any users with the user id of ${userId}`);
+            throw new BadRequest(`Cannot find any users with the user id of ${decodedInfo.userId}`);
         res.status(200).json({user,good:true});
     }catch(err){
         next(err);

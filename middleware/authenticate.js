@@ -12,7 +12,7 @@ const authenticate = async (req,res,next) =>{
 
         const decodedInfo = await jwt.verify(token,process.env.JWT_ENCRYPTION);
 
-        req.user = decodedInfo;
+        req.user = {decodedInfo,token};
         next();
     }catch(err){
         next(err);
