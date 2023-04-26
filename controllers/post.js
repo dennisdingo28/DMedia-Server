@@ -42,6 +42,22 @@ const sharePost = async(req,res,next)=>{
 
         const updatedUser = await axios.patch(`http://localhost:5000/user/${user._id}`,{posts:[...user.posts,id]}, {headers:{authorization:`Bearer ${token}`}});
 
+
+        const postData = {
+            imageUrl:targetPost.data.imageUrl,
+            imageAlt:targetPost.data.imageAlt,
+            title:targetPost.data.title,
+            description:targetPost.data.description,
+            share:{
+                initialUserId:targetPost.data.createdBy
+            }
+        }
+        const createPost = await axios.post(`http://localhost:5000/post/create`,postData,{
+            headers:{
+                authorization:`Bearer ${token}`
+            }
+        })
+
     }catch(err){
         next(err);
     }
