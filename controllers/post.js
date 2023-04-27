@@ -109,6 +109,20 @@ const updatePost = async (req,res,next)=>{
     }
 }
 
+const deletePost = async (req,res,next)=>{
+    try{
+        const {id}=req.params;
+
+        const deletedPost = await PostSchema.findByIdAndDelete({_id:id});
+        if(!deletedPost)
+            throw new BadRequest(`Cannot find any post with the id of ${id}`);
+
+        res.status(200).json({msg:`Post ${id} was successfully deleted`,good:true});
+    }catch(err){
+        next(err);
+    }
+}
 
 
-module.exports = {createPost,updatePost,sharePost};
+
+module.exports = {createPost,updatePost,sharePost,deletePost};
