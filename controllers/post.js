@@ -57,7 +57,7 @@ const sharePost = async(req,res,next)=>{
                 authorization:`Bearer ${token}`
             }
         })
-
+        res.status(200).json({post:createPost.data.post,good:true});
     }catch(err){
         next(err);
     }

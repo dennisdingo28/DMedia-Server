@@ -4,7 +4,7 @@ const {BadRequest} = require('../errors/');
 const updateUser = async (req,res,next)=>{
     try{
         const {id}=req.params;
-        const {totalPostLikes,totalPostDislikes,defaultLikes,defaultDislikes,totalShares,posts}=req.body;
+        const {totalPostLikes,totalPostDislikes,defaultLikes,defaultDislikes,totalShares,posts,share}=req.body;
         
         const targetUser = await UserSchema.findById({_id:id});
 
@@ -37,6 +37,9 @@ const updateUser = async (req,res,next)=>{
             userPropsObject.posts=posts;
 
         console.log(userPropsObject);
+
+        if(share!==undefined)
+            userPropsObject.share=share;
         const user = await UserSchema.findByIdAndUpdate({_id:id},userPropsObject,{new:true,runValidators:true})
         
         if(!user){
