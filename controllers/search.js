@@ -58,5 +58,19 @@ const searchPostById = async(req,res,next)=>{
     }
 }
 
+const searchPost = async(req,res,next)=>{
+    try{
+        const {createdBy,initialShareUserId}=req.query;
+        console.log(req.query);
 
-module.exports = {searchUser,searchUserById,searchAllPosts,searchPostById};
+        const targetPost = await PostSchema.findOne({createdBy:createdBy,share:{initialUserId:initialShareUserId}});
+
+        if(!target)
+            throw new BadRequest(`Cannot find any post with the following details: createdBy:${createdBy} and initialShare:${initialShareUserId}`);
+        res.status(200).json({post:targetPost,good:true});    
+    }catch(err){
+        next(err);
+    }
+}
+
+module.exports = {searchUser,searchUserById,searchAllPosts,searchPostById,searchPost};

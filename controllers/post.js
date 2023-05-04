@@ -112,7 +112,7 @@ const updatePost = async (req,res,next)=>{
 const deletePost = async (req,res,next)=>{
     try{
         const {id}=req.params;
-
+        console.log(id);
         const deletedPost = await PostSchema.findByIdAndDelete({_id:id});
         if(!deletedPost)
             throw new BadRequest(`Cannot find any post with the id of ${id}`);
