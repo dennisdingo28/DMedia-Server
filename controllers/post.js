@@ -123,6 +123,19 @@ const deletePost = async (req,res,next)=>{
     }
 }
 
+const sharedPost = async(req,res,next)=>{
+    try{
+        const {userId,initialUserId} = req.query;
+
+        const targetSharedPost = await PostSchema.findOne({createdBy:userId,"share.initialUserId": initialUserId});
+        if(!targetSharedPost)
+            throw new BadRequest(`Cannot find any post with the following parameters : ${req.query}`);
+
+        res.status(200).json({post:targetSharedPost,good:true}); 
+    }catch(err){ 
+        next(err);
+    }
+}
 
 
-module.exports = {createPost,updatePost,sharePost,deletePost};
+module.exports = {createPost,updatePost,sharePost,deletePost,sharedPost};
