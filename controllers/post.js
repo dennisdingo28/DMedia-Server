@@ -40,8 +40,6 @@ const sharePost = async(req,res,next)=>{
 
         const updatedPost = await axios.patch(`http://localhost:5000/post/updatePost/${id}`,updateProps,{headers:{authorization:`Bearer ${token}`}});
 
-        const updatedUser = await axios.patch(`http://localhost:5000/user/${user._id}`,{posts:[...user.posts,id]}, {headers:{authorization:`Bearer ${token}`}});
-
 
         const postData = {
             imageUrl:targetPost.data.imageUrl,
@@ -57,6 +55,9 @@ const sharePost = async(req,res,next)=>{
                 authorization:`Bearer ${token}`
             }
         })
+
+        const updatedUser = await axios.patch(`http://localhost:5000/user/${user._id}`,{posts:[...user.posts,createPost.data.post._id]}, {headers:{authorization:`Bearer ${token}`}});
+
         res.status(200).json({post:createPost.data.post,good:true});
     }catch(err){
         next(err);
