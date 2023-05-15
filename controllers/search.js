@@ -47,7 +47,7 @@ const searchAllPosts = async (req,res,next)=>{
 const searchPostById = async(req,res,next)=>{
     try{
         const {id}=req.params;
-        const targetPost = await PostSchema.findById({_id:id});
+        const targetPost = await PostSchema.findById({_id:id}).select("-password");
 
         if(!targetPost)
             throw new BadRequest(`Cannot find any post with the id of ${id}`);
