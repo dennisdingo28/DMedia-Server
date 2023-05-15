@@ -114,7 +114,19 @@ const deletePost = async (req,res,next)=>{
     try{
         const {id}=req.params;
         console.log(id);
+        const {decodedInfo,token} = req.user;
+        console.log('decoedd',decodedInfo);
         const deletedPost = await PostSchema.findByIdAndDelete({_id:id});
+        const currentUser = await axios.get(`http://localhost:5000/search/userId/${decodedInfo.userId}`,{headers:{
+            authorization:`Bearer ${token}`
+        }});
+
+        console.log('cirremt',currentUser);
+
+        if(!currentUser)
+            throw new BadRequest(`Cannot find any user with the id of ${decodedInfo.userId}`);
+
+        const updatedUser = await UserSchema.findByIdAndUpdate({_id:decodedInfo.userId},{posts:currentUser.data.posts.filter(postId=>postId!==id)});
         if(!deletedPost)
             throw new BadRequest(`Cannot find any post with the id of ${id}`);
 
