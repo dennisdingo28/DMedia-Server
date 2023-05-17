@@ -47,7 +47,7 @@ const sharePost = async(req,res,next)=>{
             title:targetPost.data.title,
             description:targetPost.data.description,
             share:{
-                initialUserId:targetPost.data.createdBy
+                initialUserId:targetPost.data.share.initialUserId
             }
         }
         const createPost = await axios.post(`http://localhost:5000/post/create`,postData,{
@@ -117,6 +117,7 @@ const deletePost = async (req,res,next)=>{
         const {decodedInfo,token} = req.user;
         console.log('decoedd',decodedInfo);
         const deletedPost = await PostSchema.findByIdAndDelete({_id:id});
+        
         const currentUser = await axios.get(`http://localhost:5000/search/userId/${decodedInfo.userId}`,{headers:{
             authorization:`Bearer ${token}`
         }});
