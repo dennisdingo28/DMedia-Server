@@ -37,7 +37,7 @@ app.use('/user',authentication,userRouter);
 
 //middlewares
 app.use(notFound);
-app.use(errorHandler);
+app.use(errorHandler)
 
 //enviroment port
 const PORT = process.env.PORT || 5000;
